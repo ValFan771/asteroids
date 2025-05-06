@@ -15,6 +15,7 @@ def main():
             if event.type == pygame.QUIT: #making the close button on window work
                 return
         screen.fill((0,0,0)) #filling frame with full black
+        player.update(dt)
         player.draw(screen)
         time = clock.tick(60) #waiting for 1/60th of a second
         dt = time / 1000.0 # calculating delta time in seconds

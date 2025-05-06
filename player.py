@@ -1,5 +1,7 @@
+from pygame.examples.glcube import rotate
+
 from circleshape import CircleShape
-from constants import PLAYER_RADIUS
+from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED
 import pygame
 
 class Player(CircleShape):
@@ -7,6 +9,7 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
 
+    # Handles math for calculating the shape of the player
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         right = pygame.Vector2(0, 1).rotate(self.rotation + 90) * self.radius / 1.5
@@ -15,5 +18,18 @@ class Player(CircleShape):
         c = self.position - forward * self.radius + right
         return [a, b, c]
 
+    # Handles drawing of the player
     def draw(self, screen):
         pygame.draw.polygon(screen, [255, 255, 255], self.triangle(), 2)
+
+    # Handles rotation of the player
+    def rotate(self, dt):
+        self.rotation += PLAYER_TURN_SPEED * dt
+
+    def update(self, dt):
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_a]:
+            self.rotate(dt * -1)
+        if keys[pygame.K_d]:
+            self.rotate(dt)
