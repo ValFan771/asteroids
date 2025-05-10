@@ -1,4 +1,5 @@
 import pygame
+import sys
 
 from player import Player
 from constants import *
@@ -32,6 +33,10 @@ def main():
                 return
         screen.fill((0,0,0)) #filling frame with full black
         updatable.update(dt) # Calls update() on every object in updatable group
+        for asteroid in asteroids: # Checks if any asteroid collides with player
+            if asteroid.collide(player):
+                print("Game over!")
+                sys.exit()
         for obj in drawable: # Iterates over drawable group and calls draw() on every object
             obj.draw(screen)
         time = clock.tick(60) #waiting for 1/60th of a second
