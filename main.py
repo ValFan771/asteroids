@@ -19,7 +19,7 @@ def main():
     updatable = pygame.sprite.Group() # Group for storing all objects that should be updates
     drawable = pygame.sprite.Group() # Group for storing all objects that should be rendered
     asteroids = pygame.sprite.Group() # Group for storing all asteroids
-    shots = pygame.sprite.Group()
+    shots = pygame.sprite.Group() #  Group for storing all bullets
 
     # Creation of player
     Player.containers = (updatable, drawable) # Makes all instances of player class in the two groups
@@ -49,7 +49,7 @@ def main():
             for shot in shots:
                 if shot.collide(asteroid):
                     shot.kill()
-                    asteroid.kill()
+                    asteroid.split()
         for obj in drawable: # Iterates over drawable group and calls draw() on every object
             obj.draw(screen)
         time = clock.tick(60) #waiting for 1/60th of a second
